@@ -17,9 +17,3 @@ if len(prime_number_lst) == 0:
 else:
     print(sum(prime_number_lst))
     print(min(prime_number_lst))
-
-
-
-
-
-
