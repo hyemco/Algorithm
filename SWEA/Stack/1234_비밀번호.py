@@ -1,13 +1,12 @@
 for tc in range(1, 11):
-    l, n = input().split()
+    n, s = input().split()
     lst = []
-    for i in n:
+    for i in s:
         if lst:
-            if lst[-1] == int(i):
+            if lst[-1] == i:
                 del lst[-1]
             else:
-                lst.append(int(i))
+                lst.append(i)
         else:
-            lst.append(int(i))
-    print(f'#{tc}', end=' ')
-    print(*lst, sep='')
+            lst.append(i)
+    print(f'#{tc} ', *lst, sep='')
