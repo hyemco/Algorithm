@@ -17,7 +17,6 @@ for tc in range(1, t + 1):
         for k in range(4):
             ni = i + di[k]
             nj = j + dj[k]
-            print(type(i))
             if 0 <= ni < n and 0 <= nj < n:
                 if maze[ni][nj] == '3':
                     result = 1
