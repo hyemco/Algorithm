@@ -1,0 +1,32 @@
+for tc in range(1, 11):
+    tc_l = int(input())
+    s = input()
+    stack = []
+    postfix = ''
+    for i in s:
+        if i.isdigit():
+            postfix += i
+        elif not stack:
+            stack.append(i)
+        else:
+            if i == '*':
+                while stack and stack[-1] == '*':
+                    postfix += stack.pop()
+                stack.append(i)
+            elif i == '+':
+                while stack:
+                    postfix += stack.pop()
+                stack.append(i)
+    while stack:
+        postfix += stack.pop()
+
+    for i in postfix:
+        if i.isdigit():
+            stack.append(int(i))
+        elif len(stack) > 1:
+            if i == '+':
+                stack.append(stack.pop() + stack.pop())
+            elif i == '*':
+                stack.append(stack.pop() * stack.pop())
+
+    print(f'#{tc} {stack.pop()}')
