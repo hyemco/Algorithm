@@ -1,21 +1,19 @@
 t = int(input())
 for tc in range(1, t + 1):
-    s = input()
-    lst = []
-    ans = 1
-    for i in s:
-        if i == '(' or i == '{':
-            lst.append(i)
-        elif i == ')' or i == '}':
-            if len(lst) == 0:
-                ans = 0
-                break
-            elif i == ')' and lst.pop() == '{':
-                ans = 0
-                break
-            elif i == '}' and lst.pop() == '(':
-                ans = 0
-                break
-    if len(lst):
-        ans = 0
+    string = input()
+    st = []
+    ans = 0
+
+    for s in string:
+        if not st and s in ')}':
+            break
+        if s in '({':
+            st.append(s)
+        elif s == '}' and st.pop() == '(':
+            break
+        elif s == ')' and st.pop() == '{':
+            break
+    else:
+        if not st:
+            ans = 1
     print(f'#{tc} {ans}')
