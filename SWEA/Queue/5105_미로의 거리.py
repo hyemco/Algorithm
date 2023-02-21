@@ -1,37 +1,43 @@
-move = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+from collections import deque
+
+delta = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
 
-def bfs():
+def bfs(graph):
     global queue
-    count = 0
+    cnt = 0
     while queue:
-        temp = []
+        temp = deque()
         while queue:
-            y, x = queue.pop()
-            for i, j in move:
-                dy = y + i
-                dx = x + j
+            y, x = queue.popleft()
+            for i, j in delta:
+                dy, dx = i + y, j + x
                 if 0 <= dy < N and 0 <= dx < N:
-                    if not map_list[dy][dx]:
-                        map_list[dy][dx] = 1
+                    if graph[dy][dx] == 2:
+                        return cnt
+                    elif not graph[dy][dx]:
+                        graph[dy][dx] = 1
                         temp.append((dy, dx))
-                    if map_list[dy][dx] == 3:
-                        return count
-        count += 1
+        cnt += 1
         queue = temp
 
 
 T = int(input())
-for tc in range(1, 1 + T):
+for tc in range(1, T + 1):
     N = int(input())
-    map_list = [list(map(int, list(input()))) for _ in range(N)]
-    queue = []
+    maze = [list(map(int, input())) for _ in range(N)]
+    queue = deque()
+
     for i in range(N):
         for j in range(N):
-            if map_list[i][j] == 2:
+            if maze[i][j] == 3:
                 queue.append((i, j))
+                ans = bfs(maze)
                 break
         else:
             continue
         break
-    print(f'#{tc} {bfs()}')
+    if not ans:
+        print(f'#{tc}', 0)
+    else:
+        print(f'#{tc} {ans}')
