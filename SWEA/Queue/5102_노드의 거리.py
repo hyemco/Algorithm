@@ -2,30 +2,29 @@ from collections import deque
 
 
 def bfs(start, end):
-    Q.append(start)
+    visited = [0] * (V + 1)
+    queue = deque([start])
     visited[start] = 1
-    while Q:
-        v = Q.popleft()
-        for w in G[v]:
-            if not visited[w]:
-                visited[w] = 1
-                distance[w] = distance[v] + 1
-                Q.append(w)
-                if w == end:
-                    return distance[w]
+    while queue:
+        v = queue.popleft()
+        for i in lst[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = visited[v] + 1
+                if i == end:
+                    return visited[i] - 1
     return 0
 
 
-for tc in range(1, int(input()) + 1):
+T = int(input())
+for tc in range(1, T + 1):
     V, E = map(int, input().split())
-    G = [[] for _ in range(V + 1)]
+    lst = [[] for _ in range(V + 1)]
 
-    for i in range(E):
-        u, v = map(int, input().split())
-        G[u].append(v)
-        G[v].append(u)
-    start, end = map(int, input().split())
-    visited = [0] * (V + 1)
-    distance = [0] * (V + 1)
-    Q = deque()
-    print(f'#{tc} {bfs(start, end)}')
+    for _ in range(E):
+        v1, v2 = map(int, input().split())
+        lst[v1].append(v2)
+        lst[v2].append(v1)
+
+    S, G = map(int, input().split())
+    print(f'#{tc} {bfs(S, G)}')
