@@ -1,30 +1,27 @@
 from collections import deque
 
-res = []
-dx = [1, 0, -1, 0]
-dy = [0, -1, 0, 1]
-for m in range(10):
-    tmp = 0
-    _ = input()
-    li = []
-    visit = [[0] * 16 for i in range(16)]
-    for i in range(16):
-        li.append(list(input()))
-    q = deque()
-    q.append((1, 1))
-    visit[1][1] = 1
-    while q:
-        x, y = q.popleft()
-        for s in range(4):
-            nx = x+dx[s]
-            ny = y+dy[s]
-            if 0 <= nx <= 15 and 0 <= ny <= 15:
-                if li[nx][ny] == "3":
-                    tmp = 1
-                    break
-                if li[nx][ny] == "0" and visit[nx][ny] == 0:
-                    q.append((nx, ny))
-                    visit[nx][ny] = 1
-    res.append(tmp)
-for i in range(len(res)):
-    print(f'#{i + 1} {res[i]}')
+delta = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+
+def bfs(y, x):
+    queue = deque()
+    queue.append((y, x))
+    maze[y][x] = 1
+    while queue:
+        y, x = queue.popleft()
+        for d in delta:
+            ny, nx = y + d[0], x + d[1]
+            if 1 <= ny < 14 and 1 <= nx < 14:
+                if maze[ny][nx] == 3:
+                    return 1
+                elif maze[ny][nx] == 0:
+                    maze[ny][nx] = 1
+                    queue.append((ny, nx))
+    return 0
+
+
+for _ in range(10):
+    tc = int(input())
+    maze = [list(map(int, input())) for _ in range(16)]
+
+    print(f'#{tc} {bfs(1, 1)}')
