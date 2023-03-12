@@ -15,18 +15,19 @@ def bfs(idx):
                 if not visited[adj]:
                     visited[adj] = True
                     Q.append(adj)
-        tmp += 1
-        if tmp % 2:
+        if tmp:
             tmp = 0
+        else:
+            tmp = 1
 
 
 N = int(input())
-info = [list(map(int, input().split())) for _ in range(N)]
-
 adjL = [[] for _ in range(N + 1)]
 for i in range(N):
-    for j in info[i][1:]:
+    info = list(map(int, input().split()))
+    for j in info[1:]:
         adjL[i + 1].append(j)
+
 
 teams = [[], []]
 visited = [False] * (N + 1)
@@ -34,5 +35,6 @@ for i in range(1, N + 1):
     if not visited[i]:
         bfs(i)
 
-for i in range(2):
-    print(teams[i])
+for team in teams:
+    print(len(team))
+    print(*sorted(team))
