@@ -18,5 +18,5 @@
 ## 🔷 commit 컨벤션
 [난이도] 문제 유형 -  문제 이름
 ```
-[Gold V] 백트래킹 - N-Quuen
+[Gold V] 백트래킹 - N-Queen
 ```
